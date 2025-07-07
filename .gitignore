@@ -1,0 +1,66 @@
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+# Ignore unpacked or temporary chart dependencies
+charts/
+tmpcharts/
+
+# Ignore SSH private keys and security credentials
+*.pem
+*.key
+*.crt
+*.csr
+*.vault
+vault_pass.txt
+
+# Ignore Ansible inventory files with sensitive data
+inventory
+hosts
+*.ini
+*.yml.secret
+
+# Ignore logs and temporary files
+*.log
+*.retry
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Ignore cache and compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore Ansible Galaxy roles and collections (if installed locally)
+roles/
+collections/
+
+# Ignore environment files and secrets
+.env
+secrets.yml
+group_vars/all/vault.yml
+
+# Ignore Terraform state files (if using Terraform with Ansible)
+terraform.tfstate*
+terraform.tfvars
+.terraform/
+
+# Ignore IDE/editor-specific files
+.vscode/
+.idea/
+*.code-workspace
+
+# Ignore backup files
+*.bak
+.DS_Store
+Thumbs.db
+
+_backup/
+
+# Ignore Kubernetes configuration files
+playbooks/kubeconfig
