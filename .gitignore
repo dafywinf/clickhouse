@@ -4,9 +4,10 @@
 *.iml
 *.ipr
 
-# Ignore unpacked or temporary chart dependencies
+# 📦 Helm build output
 charts/
-tmpcharts/
+*.tgz
+Chart.lock
 
 # Ignore SSH private keys and security credentials
 *.pem

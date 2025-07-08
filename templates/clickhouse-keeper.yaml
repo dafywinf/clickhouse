@@ -1,0 +1,26 @@
+apiVersion: "clickhouse-keeper.altinity.com/v1"
+kind: "ClickHouseKeeperInstallation"
+metadata:
+  name: clickhouse-keeper
+spec:
+  defaults:
+    templates:
+      podTemplate: default
+      volumeClaimTemplate: default
+  templates:
+    volumeClaimTemplates:
+      - name: default
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 10Gi
+  configuration:
+    clusters:
+      - name: default
+        layout:
+          replicasCount: 3
+    settings:
+      logger:
+        level: trace

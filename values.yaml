@@ -1,42 +1,10 @@
-ingressHost: clickhouse.192.168.86.10.sslip.io
+ingress:
+  host: clickhouse.192-168-86-10.sslip.io
 
-clickhouse:
-  replicaCount: 2
-  auth:
+altinity-clickhouse-operator:
+  metrics:
     enabled: true
-    username: clickhouse_admin
-    password: clickhouse_password
-    database: default
-
-  keeper:
-    enabled: true
-    replicaCount: 3
-
-  service:
-    type: ClusterIP
-
-  persistence:
-    enabled: true
-    size: 8Gi
-    storageClass: "local-path"
-
-  resources:
-    limits:
-      cpu: 500m
-      memory: 512Mi
-    requests:
-      cpu: 250m
-      memory: 256Mi
-
-  affinity:
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 100
-          podAffinityTerm:
-            labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/component
-                  operator: In
-                  values:
-                    - clickhouse
-            topologyKey: "kubernetes.io/hostname"
+    serviceMonitor:
+      enabled: true
+      interval: 30s
+      scrapeTimeout: 10s

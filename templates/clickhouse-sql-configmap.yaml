@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-setup-sql
+data:
+  init.sql: |
+{{ .Files.Get "init/hello-schema.sql" | indent 4 }}

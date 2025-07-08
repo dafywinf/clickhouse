@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-setup-job
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: setup-clickhouse
+          image: clickhouse/clickhouse-client:latest
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -eux
+              echo "Starting SQL Job"
+              # Wait until ClickHouse is ready
+              until clickhouse-client --host clickhouse-{{ .Release.Name }} --query 'SELECT 1' &>/dev/null; do
+                echo "Waiting for ClickHouse..."
+                sleep 1
+              done
+              # Execute setup SQL
+              clickhouse-client --host clickhouse-{{ .Release.Name }} --queries-file /sql/init.sql
+              echo "Finished SQL Job"
+          volumeMounts:
+            - name: setup-sql-volume
+              mountPath: /sql
+      volumes:
+        - name: setup-sql-volume
+          configMap:
+            name: {{ .Release.Name }}-setup-sql
