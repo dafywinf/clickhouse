@@ -20,21 +20,23 @@ spec:
     clusters:
       - name: "cluster"
         layout:
-          shardsCount: 2
-          replicasCount: 2
+          shardsCount: {{ .Values.clickhouseCluster.shardsCount }}
+          replicasCount: {{ .Values.clickhouseCluster.shardsCount }}
   templates:
     volumeClaimTemplates:
       - name: data-volume-template
         spec:
+          storageClassName: {{ .Values.clickhouseCluster.storageClassName }}
           accessModes:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 250Gi
+              storage: {{ .Values.clickhouseCluster.dataStorage }}
       - name: log-volume-template
         spec:
+          storageClassName: {{ .Values.clickhouseCluster.storageClassName }}
           accessModes:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 5Gi
+              storage: {{ .Values.clickhouseCluster.logStorage }}

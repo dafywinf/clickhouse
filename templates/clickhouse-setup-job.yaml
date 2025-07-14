@@ -1,3 +1,4 @@
+{{- $now := now | quote }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -21,7 +22,7 @@ spec:
                 sleep 1
               done
               # Execute setup SQL
-              clickhouse-client --host clickhouse-{{ .Release.Name }} --queries-file /sql/init.sql
+              clickhouse-client --host clickhouse-{{ .Release.Name }} --queries-file /sql/init.sql || true
               echo "Finished SQL Job"
           volumeMounts:
             - name: setup-sql-volume

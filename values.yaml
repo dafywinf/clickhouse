@@ -1,6 +1,16 @@
-ingress:
-  host: clickhouse.192-168-86-10.sslip.io
+clickhouseCluster:
+  shardsCount: 1
+  replicasCount: 1
+  storageClassName: "local-path-mnt-data" # Storage class for ClickHouse data volumes
+  dataStorage: 60Gi # Size of data volume
+  logStorage: 5Gi # Size of log volume
 
+clickhouseKeeper:
+  storageClassName: "local-path-mnt-data" # Storage class for ClickHouse Keeper volumes
+  storage: 5Gi # Size of ClickHouse Keeper volume
+
+# ClickHouse Operator configuration
+# Note: Name is use for service account naming
 altinity-clickhouse-operator:
   metrics:
     enabled: true
@@ -8,3 +18,20 @@ altinity-clickhouse-operator:
       enabled: true
       interval: 30s
       scrapeTimeout: 10s
+
+clickhouseSQLConfigMap:
+  initSQL: "init-scripts/hello-schema.sql"
+
+ingress:
+  enabled: true # Enable Ingress resource
+  host: clickhouse.192-168-86-10.sslip.io
+
+tcpLoadBalancer:
+  enabled: true # Enable TCP LoadBalancer service
+  targetPort: 9000 # Port for ClickHouse native protocol
+
+tlsSecret:
+  enabled: true # Enable TLS secret creation
+  certs:
+    tlsCrt: "certs/tls.crt" # Path to TLS certificate file
+    tlsKey: "certs/tls.key" # Path to TLS key file

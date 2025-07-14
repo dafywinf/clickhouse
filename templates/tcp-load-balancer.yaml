@@ -1,3 +1,4 @@
+{{- if .Values.tcpLoadBalancer.enabled}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -8,6 +9,7 @@ spec:
     - name: tcp-native
       port: 9000
       protocol: TCP
-      targetPort: 9000
+      targetPort: {{ .Values.tcpLoadBalancer.targetPort }}
   selector:
     clickhouse.altinity.com/chi: clickhouse
+  {{- end }}

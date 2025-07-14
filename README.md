@@ -1,7 +1,3 @@
-Your deployment guide is clean and effective. Here’s a **final, polished version** with consistent formatting, clearer comments, and a touch of structure that makes it ideal for use in documentation or README files:
-
----
-
 # 🚀 ClickHouse Altinity Deployment Guide
 
 ## 🧱 Prerequisites
@@ -68,3 +64,9 @@ kubectl get svc -n clickhouse
 ```bash
 clickhouse client --host 192.168.86.13 --port 9000
 ```
+
+---
+
+## Links
+
+* [ClickHouse Altinity Kubernetes Operator Documentation](https://docs.altinity.com/altinitykubernetesoperator/kubernetesoperatorguide/)

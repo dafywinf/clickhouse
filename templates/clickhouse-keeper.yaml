@@ -11,11 +11,12 @@ spec:
     volumeClaimTemplates:
       - name: default
         spec:
+          storageClassName: {{ .Values.clickhouseKeeper.storageClassName}}
           accessModes:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 10Gi
+              storage: {{ .Values.clickhouseKeeper.storage }}
   configuration:
     clusters:
       - name: default

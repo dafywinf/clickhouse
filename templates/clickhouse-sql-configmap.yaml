@@ -4,4 +4,4 @@ metadata:
   name: {{ .Release.Name }}-setup-sql
 data:
   init.sql: |
-{{ .Files.Get "init/hello-schema.sql" | indent 4 }}
+{{ .Files.Get .Values.clickhouseSQLConfigMap.initSQL | indent 4 }}
